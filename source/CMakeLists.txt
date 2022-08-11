@@ -1,4 +1,4 @@
-set(TARGET_NAME "taskmonitor")
+set(TARGET_NAME "tkm")
 
 include(FindProtobuf)
 find_package(Protobuf REQUIRED)

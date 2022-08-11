@@ -8,5 +8,5 @@ Description: @PROJECT_DESCRIPTION@
 Version: @PROJECT_VERSION@
 
 Requires:
-Libs: -L${libdir} -ltaskmonitor
+Libs: -L${libdir} -ltkm
 Cflags: -I${includedir}
