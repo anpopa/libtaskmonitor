@@ -1,3 +1,5 @@
+set(TARGET_NAME "taskmonitor")
+
 include(FindProtobuf)
 find_package(Protobuf REQUIRED)
 
@@ -27,11 +29,11 @@ set(LIB_SRC
   EnvelopeWriter.cpp
   Helpers.cpp)
 
-add_library(${PROJECT_NAME} SHARED ${LIB_SRC} ${LIB_HDR})
-target_link_libraries(${PROJECT_NAME} PUBLIC ${PROTOBUF_LIBRARY})
+add_library(${TARGET_NAME} SHARED ${LIB_SRC} ${LIB_HDR})
+target_link_libraries(${TARGET_NAME} PUBLIC ${PROTOBUF_LIBRARY})
 
-set_target_properties(${PROJECT_NAME} PROPERTIES VERSION ${PROJECT_VERSION})
-set_target_properties(${PROJECT_NAME} PROPERTIES SOVERSION 1)
+set_target_properties(${TARGET_NAME} PROPERTIES VERSION ${PROJECT_VERSION})
+set_target_properties(${TARGET_NAME} PROPERTIES SOVERSION 1)
 
 set(LIBTM_PUBLIC_HEADERS
     "${CMAKE_BINARY_DIR}/include/TaskMonitor.h"
@@ -44,13 +46,13 @@ set(LIBTM_PUBLIC_HEADERS
     "${CMAKE_BINARY_DIR}/source/Envelope.pb.h"
     "${CMAKE_BINARY_DIR}/source/Monitor.pb.h"
     )
-set_target_properties(${PROJECT_NAME} PROPERTIES PUBLIC_HEADER "${LIBTM_PUBLIC_HEADERS}")
+set_target_properties(${TARGET_NAME} PROPERTIES PUBLIC_HEADER "${LIBTM_PUBLIC_HEADERS}")
 
-target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/include)
-target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/source)
-target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_BINARY_DIR})
-target_include_directories(${PROJECT_NAME} PRIVATE ${Protobuf_INCLUDE_DIRS})
+target_include_directories(${TARGET_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/include)
+target_include_directories(${TARGET_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/source)
+target_include_directories(${TARGET_NAME} PRIVATE ${CMAKE_BINARY_DIR})
+target_include_directories(${TARGET_NAME} PRIVATE ${Protobuf_INCLUDE_DIRS})
 
-install(TARGETS ${PROJECT_NAME}
-    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/taskmonitor)
+install(TARGETS ${TARGET_NAME}
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT bin
+    PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/taskmonitor COMPONENT dev)

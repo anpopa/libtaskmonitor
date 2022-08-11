@@ -1,13 +1,19 @@
-# CMake general setup
 cmake_minimum_required(VERSION 3.7.2)
-project(taskmonitor VERSION 1.0.0 DESCRIPTION "TaskMonitor interface library")
+project(libtaskmonitor VERSION 1.0.0 DESCRIPTION "TaskMonitor interface library")
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
-# Build time configuration setup
+set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
+message (STATUS "Module paths: ${CMAKE_MODULE_PATH}")
+
+if(NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE "RelWithDebInfo" CACHE STRING
+        "Choose the type of build: Debug, Release, RelWithDebInfo, MinSizeRel." FORCE)
+endif()
+
 if(EXISTS "${CMAKE_SOURCE_DIR}/.git")
     execute_process(
         COMMAND git --git-dir "${CMAKE_CURRENT_SOURCE_DIR}/.git" rev-parse --short HEAD
@@ -19,6 +25,7 @@ else(EXISTS "${CMAKE_SOURCE_DIR}/.git")
 endif(EXISTS "${CMAKE_SOURCE_DIR}/.git")
 
 include(GNUInstallDirs)
+include(Packing)
 
 configure_file(
     ${CMAKE_SOURCE_DIR}/config/libtaskmonitor.pc.in
