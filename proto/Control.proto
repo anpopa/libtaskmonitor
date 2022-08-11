@@ -1,0 +1,107 @@
+syntax = "proto3";
+
+import "google/protobuf/any.proto";
+
+package tkm.msg.control;
+
+message Descriptor {
+    int32 pid = 1;
+}
+
+message SessionInfo {
+    string id = 1;
+}
+
+message Status {
+    enum What {
+        OK = 0;
+        Error = 1;
+        Busy = 2;
+        Progress = 3;
+    }
+    What what = 1;
+    string request_id = 2;
+    string reason = 3;
+}
+
+message DeviceData {
+    enum State {
+        Unknown = 0;
+        Loaded = 1;
+        Connected = 2;
+        Disconnected = 3;
+        Reconnecting = 4;
+        SessionSet = 5;
+        Collecting = 6;
+        Idle = 7;
+    }
+    int64 id = 1;
+    string hash = 2;
+    string name = 3;
+    string address = 4;
+    int32 port = 5;
+    State state = 6;
+}
+
+message DeviceList {
+    repeated DeviceData device = 1;
+}
+
+message SessionData {
+    enum State {
+        Unknown = 0;
+        Progress = 1;
+        Complete = 2;
+    }
+    int64 id = 1;
+    string hash = 2;
+    string name = 3;
+    string device = 4;
+    uint64 started = 5;
+    uint64 ended = 6;
+    State state = 7;
+}
+
+message SessionList {
+    repeated SessionData session = 1;
+}
+
+message Request {
+    string id = 1;
+    enum Type {
+        Uninitialized = 0;
+        RequestSession = 1;
+        InitDatabase = 2;
+        QuitCollector = 3;
+        GetDevices = 4;
+        AddDevice = 5;
+        RemoveDevice = 6;
+        ConnectDevice = 7;
+        DisconnectDevice = 8;
+        StartCollecting = 9;
+        StopCollecting = 10;
+        GetSessions = 11;
+        RemoveSession = 12;
+    }
+    Type type = 2;
+    enum Forced {
+        NotEnforced = 0;
+        Enforced = 1;
+    }
+    Forced forced = 3;
+    google.protobuf.Any data = 4;
+}
+
+message Message {
+    string session = 1;
+    enum Type {
+        Uninitialized = 0;
+        Descriptor = 1;
+        SetSession = 2;
+        Status = 3;
+        DeviceList = 4;
+        SessionList = 5;
+    }
+    Type type = 2;
+    google.protobuf.Any data = 3;
+}

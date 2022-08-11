@@ -1,0 +1,263 @@
+syntax = "proto3";
+
+import "google/protobuf/any.proto";
+
+package tkm.msg.monitor;
+
+message SessionInfo {
+    enum DataSource {
+        ProcInfo = 0;
+        ProcAcct = 1;
+        ProcEvent = 2;
+        ContextInfo = 3;
+        SysProcStat = 4;
+        SysProcMemInfo = 5;
+        SysProcPressure = 6;
+        SysProcDiskStats = 7;
+        SysProcBuddyInfo = 8;
+        SysProcWireless = 9;
+    }
+    string hash = 1;
+    string name = 2;
+    uint64 fast_lane_interval = 3;
+    uint64 pace_lane_interval = 4;
+    uint64 slow_lane_interval = 5;
+    repeated DataSource fast_lane_sources = 6;
+    repeated DataSource pace_lane_sources = 7;
+    repeated DataSource slow_lane_sources = 8;
+    uint32 core_count = 9;
+}
+
+message Status {
+    enum What {
+        OK = 0;
+        Error = 1;
+        Busy = 2;
+        Progress = 3;
+    }
+    What what = 1;
+    string request_id = 2;
+    string reason = 3;
+}
+
+message ProcEvent {
+    uint32 fork_count = 1;
+    uint32 exec_count = 2;
+    uint32 exit_count = 3;
+    uint32 uid_count = 4;
+    uint32 gid_count = 5;
+}
+
+message ProcAcctCPU {
+    uint64 cpu_count = 1;
+    uint64 cpu_run_real_total = 2;
+    uint64 cpu_run_virtual_total = 3;
+    uint64 cpu_delay_total = 4;
+    uint64 cpu_delay_average = 5;
+}
+
+message ProcAcctMEM {
+    uint64 coremem = 1;
+    uint64 virtmem = 2;
+    uint64 hiwater_rss = 3;
+    uint64 hiwater_vm = 4;
+}
+
+message ProcAcctCTX {
+    uint64 nvcsw = 1;
+    uint64 nivcsw = 2;
+}
+
+message ProcAcctSWP {
+    uint64 swapin_count = 1;
+    uint64 swapin_delay_total = 2;
+    uint64 swapin_delay_average = 3;
+}
+
+message ProcAcctIO {
+    uint64 blkio_count = 1;
+    uint64 blkio_delay_total = 2;
+    uint64 blkio_delay_average = 3;
+    uint64 read_bytes = 4;
+    uint64 write_bytes = 5;
+    uint64 read_char = 6;
+    uint64 write_char = 7;
+    uint64 read_syscalls = 8;
+    uint64 write_syscalls = 9;
+}
+
+message ProcAcctReclaim {
+    uint64 freepages_count = 1;
+    uint64 freepages_delay_total = 2;
+    uint64 freepages_delay_average = 3;
+}
+
+message ProcAcctThrashing {
+    uint64 thrashing_count = 1;
+    uint64 thrashing_delay_total = 2;
+    uint64 thrashing_delay_average = 3;
+}
+
+message ProcAcct {
+    string ac_comm = 1;
+    uint32 ac_uid = 2;
+    uint32 ac_gid = 3;
+    uint32 ac_pid = 4;
+    uint32 ac_ppid = 5;
+    uint64 ac_utime = 6;
+    uint64 ac_stime = 7;
+    ProcAcctCPU cpu = 8;
+    ProcAcctMEM mem = 9;
+    ProcAcctCTX ctx = 10;
+    ProcAcctSWP swp = 11;
+    ProcAcctIO io = 12;
+    ProcAcctReclaim reclaim = 13;
+    ProcAcctThrashing thrashing = 14;
+}
+
+message ProcInfoEntry {
+    string comm = 1;
+    uint32 pid = 2;
+    uint32 ppid = 3;
+    uint64 ctx_id = 4;
+    string ctx_name = 5;
+    uint64 cpu_time = 6;
+    uint32 cpu_percent = 7;
+    uint32 mem_vmrss = 8;
+}
+
+message ProcInfo {
+    repeated ProcInfoEntry entry = 1;
+}
+
+message ContextInfoEntry {
+    uint64 ctx_id = 1;
+    string ctx_name = 2;
+    uint64 total_cpu_time = 3;
+    uint32 total_cpu_percent = 4;
+    uint32 total_mem_vmrss = 5;
+}
+
+message ContextInfo {
+    repeated ContextInfoEntry entry = 1;
+}
+
+message PSIData {
+    float avg10 = 1;
+    float avg60 = 2;
+    float avg300 = 3;
+    uint64 total = 4;
+}
+
+message SysProcPressure {
+    PSIData cpu_some = 1;
+    PSIData cpu_full = 2;
+    PSIData mem_some = 3;
+    PSIData mem_full = 4;
+    PSIData io_some = 5;
+    PSIData io_full = 6;
+}
+
+message CPUStat {
+    string name = 1;
+    uint32 all = 2;
+    uint32 usr = 3;
+    uint32 sys = 4;
+}
+
+message SysProcStat {
+    CPUStat cpu = 1;
+    repeated CPUStat core = 2;
+}
+
+message BuddyInfo {
+    string name = 1;
+    string zone = 2;
+    string data = 3;
+}
+
+message SysProcBuddyInfo {
+    repeated BuddyInfo node = 1;
+}
+
+message WlanInterface {
+    string name = 1;
+    string status = 2;
+    int32 quality_link = 3;
+    int32 quality_level = 4;
+    int32 quality_noise = 5;
+    uint32 discarded_nwid = 6;
+    uint32 discarded_crypt = 7;
+    uint32 discarded_frag = 8;
+    uint32 discarded_retry = 9;
+    uint32 discarded_misc = 10;
+    uint32 missed_beacon = 11;
+}
+
+message SysProcWireless {
+    repeated WlanInterface ifw = 1;
+}
+
+message SysProcMemInfo {
+    uint32 mem_total = 1;
+    uint32 mem_free = 2;
+    uint32 mem_available = 3;
+    uint32 mem_cached = 4;
+    uint32 mem_percent = 5;
+    uint32 swap_total = 6;
+    uint32 swap_free = 7;
+    uint32 swap_cached = 8;
+    uint32 swap_percent = 9;
+    uint32 cma_total = 10;
+    uint32 cma_free = 11;
+}
+
+message DiskStatEntry {
+    uint32 major = 1;
+    uint32 minor = 2;
+    string name = 3;
+    uint64 reads_completed = 4;
+    uint64 reads_merged = 5;
+    uint64 reads_spent_ms = 6;
+    uint64 writes_completed = 7;
+    uint64 writes_merged = 8;
+    uint64 writes_spent_ms = 9;
+    uint64 io_in_progress = 10;
+    uint64 io_spent_ms = 11;
+    uint64 io_weighted_ms = 12;
+}
+
+message SysProcDiskStats {
+    repeated DiskStatEntry disk = 1;
+}
+
+message Data {
+    enum What {
+        ProcAcct = 0;
+        ProcInfo = 1;
+        ProcEvent = 2;
+        ContextInfo = 3;
+        SysProcStat = 4;
+        SysProcPressure = 5;
+        SysProcMemInfo = 6;
+        SysProcDiskStats = 7;
+        SysProcBuddyInfo = 8;
+        SysProcWireless = 9;
+    }
+    What what = 1;
+    uint64 system_time_sec = 2;
+    uint64 monotonic_time_sec = 3;
+    uint64 receive_time_sec = 4;
+    google.protobuf.Any payload = 5;
+}
+
+message Message {
+    enum Type {
+        Uninitialized = 0;
+        SetSession = 1;
+        Status = 2;
+        Data = 3;
+    }
+    Type type = 1;
+    google.protobuf.Any payload = 2;
+}

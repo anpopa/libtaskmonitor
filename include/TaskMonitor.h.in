@@ -1,0 +1,28 @@
+/*-
+ * SPDX-License-Identifier: MIT
+ *-
+ * @date      2021-2022
+ * @author    Alin Popa <alin.popa@fxdata.ro>
+ * @copyright MIT
+ * @brief     TaskMonitor library global include
+ * @details   Include TaskMonitor public headers
+ *-
+ */
+
+#pragma once
+
+#include "EnvelopeReader.h"
+#include "EnvelopeWriter.h"
+#include "Helpers.h"
+
+#include "Collector.pb.h"
+#include "Control.pb.h"
+#include "Envelope.pb.h"
+#include "Monitor.pb.h"
+
+#define TKMLIB_VERSION "@PROJECT_VERSION@"
+#define TKMLIB_BUILD_VERSION "@GIT_SHA1@"
+#define TKMLIB_CHECK_VERSION                                                                       \
+  do {                                                                                             \
+    tkm::tkmLibCheckVersion(TKMLIB_BUILD_VERSION);                                                 \
+  } while (false);

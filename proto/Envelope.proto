@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+import "google/protobuf/any.proto";
+
+package tkm.msg;
+
+message Envelope {
+    enum Recipient {
+        Any = 0;
+        Monitor = 1;
+        Collector = 2;
+        Control = 3;
+    }
+    Recipient origin = 1;
+    Recipient target = 2;
+    google.protobuf.Any mesg = 3;
+}

@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+import "google/protobuf/any.proto";
+
+package tkm.msg.collector;
+
+message Descriptor {
+    string id = 1;
+}
+
+message Filter {
+    string filter = 1;
+}
+
+message Request {
+    string id = 1;
+    enum Type {
+        Uninitialized = 0;
+        CreateSession = 1;
+        GetStartupData = 2;
+        GetProcAcct = 3;
+        GetProcInfo = 4;
+        GetContextInfo = 5;
+        GetProcEventStats = 6;
+        GetSysProcStat = 7;
+        GetSysProcPressure = 8;
+        GetSysProcMemInfo = 9;
+        GetSysProcDiskStats = 10;
+        GetSysProcBuddyInfo = 11;
+        GetSysProcWireless = 12;
+    }
+    Type type = 2;
+    google.protobuf.Any data = 3;
+}
+
+message Message {
+    enum Type {
+        Uninitialized = 0;
+        Descriptor = 1;
+    }
+    Type type = 1;
+    google.protobuf.Any data = 2;
+}
