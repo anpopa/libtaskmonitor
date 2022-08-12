@@ -41,4 +41,10 @@ set(CPACK_DEBIAN_BIN_PACKAGE_DEPENDS "libprotobuf23 (>=3.12.4)")
 set(CPACK_DEBIAN_DEV_PACKAGE_DEPENDS "libtaskmonitor-bin (=${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH}), libprotobuf23 (>=3.12.4), libprotobuf23-dev (>=3.12.4), protobuf-compiler (>=3.12.4)")
 set(CPACK_DEBIAN_COMPONENT_INSTALL ON)
 
+# FreeBSD
+set(CPACK_FREEBSD_DEBUGINFO_PACKAGE OFF)
+set(CPACK_FREEBSD_PACKAGE_MAINTAINER "Alin Popa")
+set(CPACK_FREEBSD_PACKAGE_ORIGIN "devel/libtaskmonitor")
+set(CPACK_FREEBSD_PACKAGE_DEPENDS "devel/protobuf")
+
 include(CPack)
