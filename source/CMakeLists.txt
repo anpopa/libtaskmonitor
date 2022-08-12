@@ -32,11 +32,10 @@ set(LIB_SRC
 add_library(${TARGET_NAME} SHARED ${LIB_SRC} ${LIB_HDR})
 target_link_libraries(${TARGET_NAME} PUBLIC ${PROTOBUF_LIBRARY})
 
-set_target_properties(${TARGET_NAME} PROPERTIES VERSION ${PROJECT_VERSION})
-set_target_properties(${TARGET_NAME} PROPERTIES SOVERSION 1)
+set_target_properties(${TARGET_NAME} PROPERTIES SOVERSION ${PROJECT_VERSION_MAJOR})
 
 set(LIBTM_PUBLIC_HEADERS
-    "${CMAKE_BINARY_DIR}/include/TaskMonitor.h"
+    "${CMAKE_BINARY_DIR}/include/taskmonitor.h"
     "${CMAKE_SOURCE_DIR}/include/IAsyncEnvelope.h"
     "${CMAKE_SOURCE_DIR}/include/EnvelopeReader.h"
     "${CMAKE_SOURCE_DIR}/include/EnvelopeWriter.h"
