@@ -49,7 +49,8 @@ public:
   IAsyncEnvelope(IAsyncEnvelope const &) = delete;
   void operator=(IAsyncEnvelope const &) = delete;
 
-  [[nodiscard]] int getFD() const { return m_fd; }
+  [[nodiscard]] auto getFD() const { return m_fd; }
+  void resetFileDescriptor(int fd) { m_fd = fd; }
 
   void setCloseOnDelete(bool state) { m_closeFdOnDelete = state; }
 
