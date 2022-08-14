@@ -33,7 +33,9 @@ public:
   : m_name(name)
   , m_fd(fd)
   {
-    fcntl(fd, F_SETFL, O_NONBLOCK);
+    if (fd > 0) {
+      fcntl(fd, F_SETFL, O_NONBLOCK);
+    }
   }
 
   ~IAsyncEnvelope()
@@ -51,7 +53,6 @@ public:
 
   [[nodiscard]] auto getFD() const { return m_fd; }
   void resetFileDescriptor(int fd) { m_fd = fd; }
-
   void setCloseOnDelete(bool state) { m_closeFdOnDelete = state; }
 
 protected:
