@@ -19,6 +19,12 @@
 #include <sys/socket.h>
 #include <unistd.h>
 
+#if __has_include(<filesystem>)
+#include <filesystem>
+#else
+#include <experimental/filesystem>
+#endif
+
 #include "Helpers.h"
 #include "taskmonitor.h"
 
