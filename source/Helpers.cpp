@@ -10,7 +10,6 @@
  */
 
 #include <cstring>
-#include <filesystem>
 #include <fstream>
 #include <memory>
 #include <sstream>
@@ -21,8 +20,10 @@
 
 #if __has_include(<filesystem>)
 #include <filesystem>
+using namespace std::filesystem;
 #else
 #include <experimental/filesystem>
+using namespace std::experimental::filesystem;
 #endif
 
 #include "Helpers.h"
@@ -275,7 +276,7 @@ auto getContextId(pid_t pid) -> uint64_t
       break;
     }
 
-    if (std::filesystem::exists(procPath)) {
+    if (exists(procPath)) {
       ctxStr << readLink(procPath);
     }
   }
