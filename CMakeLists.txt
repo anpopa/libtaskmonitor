@@ -45,8 +45,8 @@ configure_file(
     ${CMAKE_BINARY_DIR}/libtaskmonitor.pc @ONLY)
 
 configure_file(
-    ${CMAKE_SOURCE_DIR}/include/TaskMonitor.h.in
-    ${CMAKE_BINARY_DIR}/include/TaskMonitor.h @ONLY
+    ${CMAKE_SOURCE_DIR}/include/Helpers.h.in
+    ${CMAKE_BINARY_DIR}/include/Helpers.h @ONLY
 )
 
 
@@ -82,11 +82,11 @@ set_target_properties(${TARGET_NAME} PROPERTIES VERSION "${PROJECT_VERSION}")
 set_target_properties(${TARGET_NAME} PROPERTIES SOVERSION ${PROJECT_VERSION_MAJOR})
 
 set(LIBTM_PUBLIC_HEADERS
-    "${CMAKE_BINARY_DIR}/include/TaskMonitor.h"
     "${CMAKE_SOURCE_DIR}/include/IAsyncEnvelope.h"
     "${CMAKE_SOURCE_DIR}/include/EnvelopeReader.h"
     "${CMAKE_SOURCE_DIR}/include/EnvelopeWriter.h"
-    "${CMAKE_SOURCE_DIR}/include/Helpers.h"
+    "${CMAKE_SOURCE_DIR}/include/taskmonitor.h"
+    "${CMAKE_BINARY_DIR}/include/Helpers.h"
     "${CMAKE_BINARY_DIR}/Collector.pb.h"
     "${CMAKE_BINARY_DIR}/Control.pb.h"
     "${CMAKE_BINARY_DIR}/Envelope.pb.h"

@@ -26,8 +26,8 @@ using namespace std::filesystem;
 using namespace std::experimental::filesystem;
 #endif
 
+#include "Envelope.pb.h"
 #include "Helpers.h"
-#include "TaskMonitor.h"
 
 #include <google/protobuf/io/coded_stream.h>
 #include <google/protobuf/io/zero_copy_stream_impl.h>
