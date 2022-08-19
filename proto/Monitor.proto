@@ -213,8 +213,8 @@ message SysProcMemInfo {
 }
 
 message DiskStatEntry {
-    uint32 major = 1;
-    uint32 minor = 2;
+    uint32 node_major = 1;
+    uint32 node_minor = 2;
     string name = 3;
     uint64 reads_completed = 4;
     uint64 reads_merged = 5;

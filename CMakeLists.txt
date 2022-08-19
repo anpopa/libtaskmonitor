@@ -28,7 +28,7 @@ endif()
 
 set(PROJECT_VERSION_MAJOR "1")
 set(PROJECT_VERSION_MINOR "0")
-set(PROJECT_VERSION_PATCH "${GIT_SHA1}")
+set(PROJECT_VERSION_PATCH "0")
 
 include(GNUInstallDirs)
 include(Packing)
@@ -39,7 +39,7 @@ configure_file(
 
 configure_file(
     ${CMAKE_SOURCE_DIR}/include/TaskMonitor.h.in
-    ${CMAKE_BINARY_DIR}/include/taskmonitor.h @ONLY)
+    ${CMAKE_BINARY_DIR}/include/TaskMonitor.h @ONLY)
 
 include_directories(${CMAKE_SOURCE_DIR}/include)
 include_directories(${CMAKE_BINARY_DIR}/include)

@@ -20,9 +20,9 @@
 #include "Envelope.pb.h"
 #include "Monitor.pb.h"
 
-#define TKMLIB_VERSION "@PROJECT_VERSION@"
+#define TKMLIB_VERSION "@PROJECT_VERSION_MAJOR@.@PROJECT_VERSION_MINOR@.@PROJECT_VERSION_PATCH@"
 #define TKMLIB_BUILD_VERSION "@GIT_SHA1@"
-#define TKMLIB_CHECK_VERSION                                                                       \
-  do {                                                                                             \
-    tkm::tkmLibCheckVersion(TKMLIB_BUILD_VERSION);                                                 \
+#define TKMLIB_CHECK_VERSION                  \
+  do {                                        \
+    tkm::tkmLibCheckVersion(TKMLIB_VERSION);  \
   } while (false);

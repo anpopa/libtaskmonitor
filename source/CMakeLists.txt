@@ -36,7 +36,7 @@ set_target_properties(${TARGET_NAME} PROPERTIES VERSION "${PROJECT_VERSION_MAJOR
 set_target_properties(${TARGET_NAME} PROPERTIES SOVERSION ${PROJECT_VERSION_MAJOR})
 
 set(LIBTM_PUBLIC_HEADERS
-    "${CMAKE_BINARY_DIR}/include/taskmonitor.h"
+    "${CMAKE_BINARY_DIR}/include/TaskMonitor.h"
     "${CMAKE_SOURCE_DIR}/include/IAsyncEnvelope.h"
     "${CMAKE_SOURCE_DIR}/include/EnvelopeReader.h"
     "${CMAKE_SOURCE_DIR}/include/EnvelopeWriter.h"

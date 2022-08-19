@@ -27,7 +27,7 @@ using namespace std::experimental::filesystem;
 #endif
 
 #include "Helpers.h"
-#include "taskmonitor.h"
+#include "TaskMonitor.h"
 
 #include <google/protobuf/io/coded_stream.h>
 #include <google/protobuf/io/zero_copy_stream_impl.h>
@@ -287,7 +287,7 @@ auto getContextId(pid_t pid) -> uint64_t
 void tkmLibCheckVersion(const std::string &vstr)
 {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
-  if (vstr != TKMLIB_BUILD_VERSION) {
+  if (vstr != TKMLIB_VERSION) {
     throw std::runtime_error("TaskMonitor Library header mismatch");
   }
 }

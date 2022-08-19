@@ -5,7 +5,7 @@ includedir=${prefix}/@CMAKE_INSTALL_INCLUDEDIR@/taskmonitor
 
 Name: @PROJECT_NAME@
 Description: @PROJECT_DESCRIPTION@
-Version: @PROJECT_VERSION@
+Version: @PROJECT_VERSION_MAJOR@.@PROJECT_VERSION_MINOR@.@PROJECT_VERSION_PATCH@
 
 Requires:
 Libs: -L${libdir} -ltkm
