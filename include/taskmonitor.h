@@ -11,11 +11,11 @@
 
 #pragma once
 
-#include "taskmonitor/Helpers.h"
-#include "taskmonitor/EnvelopeReader.h"
-#include "taskmonitor/EnvelopeWriter.h"
+#include <taskmonitor/Helpers.h>
+#include <taskmonitor/EnvelopeReader.h>
+#include <taskmonitor/EnvelopeWriter.h>
 
-#include "taskmonitor/Collector.pb.h"
-#include "taskmonitor/Control.pb.h"
-#include "taskmonitor/Envelope.pb.h"
-#include "taskmonitor/Monitor.pb.h"
+#include <taskmonitor/Collector.pb.h>
+#include <taskmonitor/Control.pb.h>
+#include <taskmonitor/Envelope.pb.h>
+#include <taskmonitor/Monitor.pb.h>
