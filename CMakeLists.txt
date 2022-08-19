@@ -120,5 +120,5 @@ install(TARGETS ${TARGET_NAME}
 
 install(EXPORT tkm-config
         NAMESPACE tkm::
-        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/tkm
+        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/tkm COMPONENT dev
 )
