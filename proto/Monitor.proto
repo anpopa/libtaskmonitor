@@ -163,6 +163,7 @@ message CPUStat {
     uint32 all = 2;
     uint32 usr = 3;
     uint32 sys = 4;
+    uint32 iow = 5;
 }
 
 message SysProcStat {
