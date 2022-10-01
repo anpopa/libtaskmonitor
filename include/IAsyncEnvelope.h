@@ -58,7 +58,6 @@ public:
 protected:
   void bufferReset()
   {
-    ::memset(&m_buffer, 0, sizeof(m_buffer));
     m_bufferOffset = 0;
   }
 
