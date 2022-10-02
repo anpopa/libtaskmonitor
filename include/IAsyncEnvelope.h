@@ -21,7 +21,7 @@
 namespace tkm
 {
 
-constexpr size_t GAsyncBufferSize = 1048576;
+constexpr size_t GAsyncBufferSize = 524288;
 
 class IAsyncEnvelope
 {
