@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.7.2)
 project(libtaskmonitor
         LANGUAGES CXX
-        VERSION 1.0.1
+        VERSION 1.0.2
         DESCRIPTION "TaskMonitor interface library"
 )
 
@@ -28,7 +28,6 @@ else(EXISTS "${CMAKE_SOURCE_DIR}/.git")
     set(GIT_SHA1 "local")
 endif(EXISTS "${CMAKE_SOURCE_DIR}/.git")
 
-
 # include
 include(GNUInstallDirs)
 
@@ -37,7 +36,6 @@ include(cmake/Packing.cmake)
 
 # dependencies
 find_package(Protobuf REQUIRED)
-
 
 # generate
 configure_file(
@@ -49,13 +47,11 @@ configure_file(
     ${CMAKE_BINARY_DIR}/include/Helpers.h @ONLY
 )
 
-
 # protobuf
 protobuf_generate_cpp(COLLECTOR_SRCS COLLECTOR_HDRS proto/Collector.proto)
 protobuf_generate_cpp(MONITOR_SRCS MONITOR_HDRS proto/Monitor.proto)
 protobuf_generate_cpp(ENVELOPE_SRCS ENVELOPE_HDRS proto/Envelope.proto)
 protobuf_generate_cpp(CONTROL_SRCS CONTROL_HDRS proto/Control.proto)
-
 
 # library
 add_library(${TARGET_NAME} SHARED 
@@ -103,7 +99,6 @@ target_include_directories(${TARGET_NAME}
     PRIVATE
         ${Protobuf_INCLUDE_DIRS}
 )
-
 
 # install
 install(FILES ${CMAKE_BINARY_DIR}/libtaskmonitor.pc 
