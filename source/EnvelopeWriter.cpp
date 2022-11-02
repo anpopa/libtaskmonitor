@@ -32,11 +32,15 @@ EnvelopeWriter::EnvelopeWriter(int fd)
 
 auto EnvelopeWriter::send(const tkm::msg::Envelope &envelope) -> IAsyncEnvelope::Status
 {
-  auto envelopeSize = envelope.ByteSizeLong();
+  uint64_t envelopeSize = envelope.ByteSizeLong();
   std::scoped_lock lk(m_mutex);
 
   if (envelopeSize > GAsyncBufferSize) {
     throw std::runtime_error("Message size bigger then buffer");
+  }
+
+  if (envelopeSize > UINT32_MAX) {
+    return Status::Error;
   }
 
   if ((envelopeSize + sizeof(uint64_t)) > (sizeof(m_buffer) - m_bufferOffset)) {
@@ -45,11 +49,12 @@ auto EnvelopeWriter::send(const tkm::msg::Envelope &envelope) -> IAsyncEnvelope:
     }
   }
 
-  pbio::ArrayOutputStream outputArray(m_buffer + m_bufferOffset, sizeof(m_buffer) - m_bufferOffset);
+  pbio::ArrayOutputStream outputArray(m_buffer + m_bufferOffset,
+                                      static_cast<int>(sizeof(m_buffer) - m_bufferOffset));
   pbio::CodedOutputStream codedOutput(&outputArray);
 
   const auto initialBufferOffset = m_bufferOffset;
-  codedOutput.WriteVarint32(envelopeSize);
+  codedOutput.WriteVarint32(static_cast<uint32_t>(envelopeSize));
   m_bufferOffset += sizeof(uint64_t);
 
   if (!envelope.SerializeToCodedStream(&codedOutput)) {
@@ -91,7 +96,7 @@ bool EnvelopeWriter::flushInternal()
     } else if (retVal == 0) {
       status = false; // File descriptor closed
     } else {
-      sizeToSend -= retVal;
+      sizeToSend -= static_cast<uint64_t>(retVal);
     }
   }
 

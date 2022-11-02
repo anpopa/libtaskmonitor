@@ -13,6 +13,9 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
+option(WITH_TIDY "Build with clang-tidy" N)
+option(WITH_GCC_HARDEN_FLAGS "Build with GCC harden compile flags" N)
+
 if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE "RelWithDebInfo" CACHE STRING
         "Choose the type of build: Debug, Release, RelWithDebInfo, MinSizeRel." FORCE)
@@ -52,6 +55,42 @@ protobuf_generate_cpp(COLLECTOR_SRCS COLLECTOR_HDRS proto/Collector.proto)
 protobuf_generate_cpp(MONITOR_SRCS MONITOR_HDRS proto/Monitor.proto)
 protobuf_generate_cpp(ENVELOPE_SRCS ENVELOPE_HDRS proto/Envelope.proto)
 protobuf_generate_cpp(CONTROL_SRCS CONTROL_HDRS proto/Control.proto)
+
+if(WITH_TIDY)
+    set(CMAKE_CXX_CLANG_TIDY "clang-tidy")
+endif()
+
+if(WITH_GCC_HARDEN_FLAGS)
+    # Build flags
+    add_compile_options (
+        -Wall
+        -Wextra
+        -Wno-unused-function
+        -Wformat
+        -Wno-variadic-macros
+        -Wno-strict-aliasing
+        -fstack-protector-strong
+        -fwrapv
+        -Wformat-signedness
+        -Wmissing-include-dirs
+        -Wimplicit-fallthrough=5
+        -Wunused-parameter
+        -Wuninitialized
+        -Walloca
+        -Wduplicated-branches
+        -Wduplicated-cond
+        -Wfloat-equal
+        -Wshadow
+        -Wcast-qual
+        -Wconversion
+        -Wlogical-op
+        -Werror
+        -Wformat-security
+        -Walloc-zero
+        -Wcast-align
+        -Wredundant-decls
+    )
+endif()
 
 # library
 add_library(${TARGET_NAME} SHARED 
@@ -117,3 +156,8 @@ install(EXPORT tkm-config
         NAMESPACE tkm::
         DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/tkm COMPONENT dev
 )
+
+# Status reporting
+message (STATUS "CMAKE_BUILD_TYPE: "        ${CMAKE_BUILD_TYPE})
+message (STATUS "WITH_TIDY: "               ${WITH_TIDY})
+message (STATUS "WITH_GCC_HARDEN_FLAGS: "   ${WITH_GCC_HARDEN_FLAGS})

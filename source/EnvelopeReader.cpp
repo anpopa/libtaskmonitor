@@ -46,21 +46,20 @@ auto EnvelopeReader::next(tkm::msg::Envelope &envelope) -> IAsyncEnvelope::Statu
       return Status::EndOfFile;
     }
   } else {
-    m_bufferOffset += retVal;
+    m_bufferOffset += static_cast<size_t>(retVal);
   }
 
   // Check if we have a complete envelope
-  pbio::ArrayInputStream inputArray(m_buffer, m_bufferOffset);
+  pbio::ArrayInputStream inputArray(m_buffer, static_cast<int>(m_bufferOffset));
   pbio::CodedInputStream codedInput(&inputArray);
   uint32_t messageSize;
 
   codedInput.ReadVarint32(&messageSize);
   if ((messageSize + sizeof(uint64_t)) > m_bufferOffset) {
-    // We don't have the complete message
-    return Status::Again;
+    return Status::Again; // We don't have the complete message
   }
 
-  codedInput.PushLimit(messageSize);
+  codedInput.PushLimit(static_cast<int>(messageSize));
   if (!envelope.ParseFromCodedStream(&codedInput)) {
     bufferReset();
     return Status::Error;
