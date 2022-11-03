@@ -72,7 +72,7 @@ bool sendCollectorDescriptor(int fd, tkm::msg::collector::Descriptor &descriptor
   pbio::CodedOutputStream codedOutput(&outputArray);
 
   size_t envelopeSize = envelope.ByteSizeLong();
-  if (envelopeSize > UINT32_MAX) {
+  if ((envelopeSize > UINT32_MAX) || (envelopeSize > sizeof(buffer))) {
     return false;
   }
 
@@ -111,6 +111,10 @@ bool readCollectorDescriptor(int fd, tkm::msg::collector::Descriptor &descriptor
 
   uint32_t messageSize;
   codedInput.ReadVarint32(&messageSize);
+  if (messageSize > (sizeof(buffer) - sizeof(uint64_t))) {
+    return false;
+  }
+
   if (recv(fd, buffer + sizeof(uint64_t), messageSize, MSG_WAITALL) != messageSize) {
     return false;
   }

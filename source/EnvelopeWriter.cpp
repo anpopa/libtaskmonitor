@@ -17,7 +17,7 @@
 #include <unistd.h>
 
 #include "EnvelopeWriter.h"
-#include "google/protobuf/io/coded_stream.h"
+#include <google/protobuf/io/coded_stream.h>
 #include <google/protobuf/io/zero_copy_stream_impl.h>
 
 namespace pbio = google::protobuf::io;
@@ -35,11 +35,7 @@ auto EnvelopeWriter::send(const tkm::msg::Envelope &envelope) -> IAsyncEnvelope:
   uint64_t envelopeSize = envelope.ByteSizeLong();
   std::scoped_lock lk(m_mutex);
 
-  if (envelopeSize > GAsyncBufferSize) {
-    throw std::runtime_error("Message size bigger then buffer");
-  }
-
-  if (envelopeSize > UINT32_MAX) {
+  if ((envelopeSize > UINT32_MAX) || (envelopeSize > GAsyncBufferSize)) {
     return Status::Error;
   }
 
