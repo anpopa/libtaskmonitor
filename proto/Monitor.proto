@@ -123,7 +123,9 @@ message ProcInfoEntry {
     string ctx_name = 5;
     uint64 cpu_time = 6;
     uint32 cpu_percent = 7;
-    uint32 mem_vmrss = 8;
+    uint64 mem_vmrss = 8;
+    uint64 mem_vmsize = 9;
+    uint64 mem_shared = 10;
 }
 
 message ProcInfo {
@@ -135,7 +137,7 @@ message ContextInfoEntry {
     string ctx_name = 2;
     uint64 total_cpu_time = 3;
     uint32 total_cpu_percent = 4;
-    uint32 total_mem_vmrss = 5;
+    uint64 total_mem_vmrss = 5;
 }
 
 message ContextInfo {
@@ -200,17 +202,17 @@ message SysProcWireless {
 }
 
 message SysProcMemInfo {
-    uint32 mem_total = 1;
-    uint32 mem_free = 2;
-    uint32 mem_available = 3;
-    uint32 mem_cached = 4;
+    uint64 mem_total = 1;
+    uint64 mem_free = 2;
+    uint64 mem_available = 3;
+    uint64 mem_cached = 4;
     uint32 mem_percent = 5;
-    uint32 swap_total = 6;
-    uint32 swap_free = 7;
-    uint32 swap_cached = 8;
+    uint64 swap_total = 6;
+    uint64 swap_free = 7;
+    uint64 swap_cached = 8;
     uint32 swap_percent = 9;
-    uint32 cma_total = 10;
-    uint32 cma_free = 11;
+    uint64 cma_total = 10;
+    uint64 cma_free = 11;
 }
 
 message DiskStatEntry {
