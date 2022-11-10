@@ -138,6 +138,7 @@ message ContextInfoEntry {
     uint64 total_cpu_time = 3;
     uint32 total_cpu_percent = 4;
     uint64 total_mem_vmrss = 5;
+    uint64 total_mem_shared = 6;
 }
 
 message ContextInfo {
