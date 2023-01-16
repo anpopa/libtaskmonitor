@@ -1,3 +1,6 @@
+* Thu Jan 16 2023 Alin Popa <alin.popa@fxdata.ro> - 1.0.5
+- Add total memshared for context info
+
 * Thu Nov 9 2022 Alin Popa <alin.popa@fxdata.ro> - 1.0.4
 - Update ProcInfoEntry memory fields
 
