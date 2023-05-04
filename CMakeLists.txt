@@ -93,7 +93,7 @@ if(WITH_GCC_HARDEN_FLAGS)
 endif()
 
 # library
-add_library(${TARGET_NAME} SHARED 
+add_library(${TARGET_NAME}_object OBJECT
     source/EnvelopeReader.cpp
     source/EnvelopeWriter.cpp
     source/Helpers.cpp
@@ -101,18 +101,27 @@ add_library(${TARGET_NAME} SHARED
     ${MONITOR_SRCS}
     ${CONTROL_SRCS}
     ${ENVELOPE_SRCS}
-    
     ${COLLECTOR_HDRS}
     ${MONITOR_HDRS}
     ${CONTROL_HDRS}
     ${ENVELOPE_HDRS}
 )
+add_library(${TARGET_NAME} SHARED $<TARGET_OBJECTS:${TARGET_NAME}_object>)
+add_library(${TARGET_NAME}_static STATIC $<TARGET_OBJECTS:${TARGET_NAME}_object>)
 
 target_link_libraries(${TARGET_NAME}
     PUBLIC
         $<BUILD_INTERFACE:${PROTOBUF_LIBRARY}>
 )
 
+target_link_libraries(${TARGET_NAME}_static
+    PRIVATE
+        $<BUILD_INTERFACE:${PROTOBUF_LIBRARY}>
+)
+
+set_target_properties(${TARGET_NAME}_object PROPERTIES POSITION_INDEPENDENT_CODE 1)
+set_target_properties(${TARGET_NAME}_static PROPERTIES VERSION "${PROJECT_VERSION}")
+set_target_properties(${TARGET_NAME}_static PROPERTIES OUTPUT_NAME ${TARGET_NAME})
 set_target_properties(${TARGET_NAME} PROPERTIES VERSION "${PROJECT_VERSION}")
 set_target_properties(${TARGET_NAME} PROPERTIES SOVERSION ${PROJECT_VERSION_MAJOR})
 
@@ -129,7 +138,7 @@ set(LIBTM_PUBLIC_HEADERS
 )
 set_target_properties(${TARGET_NAME} PROPERTIES PUBLIC_HEADER "${LIBTM_PUBLIC_HEADERS}")
 
-target_include_directories(${TARGET_NAME}
+target_include_directories(${TARGET_NAME}_object
     PUBLIC 
         $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
         $<BUILD_INTERFACE:${CMAKE_BINARY_DIR}/include>
@@ -152,9 +161,16 @@ install(TARGETS ${TARGET_NAME}
     COMPONENT dev
 )
 
+install(TARGETS ${TARGET_NAME}_static
+    EXPORT tkm-config
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    COMPONENT dev
+)
+
 install(EXPORT tkm-config
         NAMESPACE tkm::
-        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/tkm COMPONENT dev
+        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/tkm
+        COMPONENT dev
 )
 
 # Status reporting
