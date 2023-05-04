@@ -1,3 +1,9 @@
+* Thu May 4 2023 Alin Popa <alin.popa@fxdata.ro> - 1.0.7
+- Build and package also the static library
+
+* Thu Jan 24 2023 Alin Popa <alin.popa@fxdata.ro> - 1.0.6
+- Add keepalive message interface
+
 * Thu Jan 16 2023 Alin Popa <alin.popa@fxdata.ro> - 1.0.5
 - Add total memshared for context info
 
