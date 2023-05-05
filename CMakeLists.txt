@@ -138,8 +138,18 @@ set(LIBTM_PUBLIC_HEADERS
 )
 set_target_properties(${TARGET_NAME} PROPERTIES PUBLIC_HEADER "${LIBTM_PUBLIC_HEADERS}")
 
-target_include_directories(${TARGET_NAME}_object
+target_include_directories(${TARGET_NAME}
     PUBLIC 
+        $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
+        $<BUILD_INTERFACE:${CMAKE_BINARY_DIR}/include>
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
+        $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
+    PRIVATE
+        ${Protobuf_INCLUDE_DIRS}
+)
+
+target_include_directories(${TARGET_NAME}_object
+    PUBLIC
         $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
         $<BUILD_INTERFACE:${CMAKE_BINARY_DIR}/include>
         $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
@@ -162,7 +172,6 @@ install(TARGETS ${TARGET_NAME}
 )
 
 install(TARGETS ${TARGET_NAME}_static
-    EXPORT tkm-config
     DESTINATION ${CMAKE_INSTALL_LIBDIR}
     COMPONENT dev
 )
