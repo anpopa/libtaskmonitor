@@ -124,9 +124,8 @@ message ProcInfoEntry {
     string ctx_name = 5;
     uint64 cpu_time = 6;
     uint32 cpu_percent = 7;
-    uint64 mem_vmrss = 8;
-    uint64 mem_vmsize = 9;
-    uint64 mem_shared = 10;
+    uint64 mem_rss = 8;
+    uint64 mem_pss = 9;
 }
 
 message ProcInfo {
@@ -138,8 +137,8 @@ message ContextInfoEntry {
     string ctx_name = 2;
     uint64 total_cpu_time = 3;
     uint32 total_cpu_percent = 4;
-    uint64 total_mem_vmrss = 5;
-    uint64 total_mem_shared = 6;
+    uint64 total_mem_rss = 5;
+    uint64 total_mem_pss = 6;
 }
 
 message ContextInfo {
