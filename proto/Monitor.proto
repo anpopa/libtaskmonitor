@@ -208,12 +208,19 @@ message SysProcMemInfo {
     uint64 mem_available = 3;
     uint64 mem_cached = 4;
     uint32 mem_percent = 5;
-    uint64 swap_total = 6;
-    uint64 swap_free = 7;
-    uint64 swap_cached = 8;
-    uint32 swap_percent = 9;
-    uint64 cma_total = 10;
-    uint64 cma_free = 11;
+    uint64 active = 6;
+    uint64 inactive = 7;
+    uint64 slab = 8;
+    uint64 kreclaimable = 9;
+    uint64 sreclaimable = 10;
+    uint64 sunreclaim = 11;
+    uint64 kernelstack = 12;
+    uint64 swap_total = 13;
+    uint64 swap_free = 14;
+    uint64 swap_cached = 15;
+    uint32 swap_percent = 16;
+    uint64 cma_total = 17;
+    uint64 cma_free = 18;
 }
 
 message DiskStatEntry {
