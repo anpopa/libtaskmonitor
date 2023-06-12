@@ -214,7 +214,7 @@ message SysProcMemInfo {
     uint64 kreclaimable = 9;
     uint64 sreclaimable = 10;
     uint64 sunreclaim = 11;
-    uint64 kernelstack = 12;
+    uint64 kernel_stack = 12;
     uint64 swap_total = 13;
     uint64 swap_free = 14;
     uint64 swap_cached = 15;
