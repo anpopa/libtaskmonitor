@@ -126,6 +126,7 @@ message ProcInfoEntry {
     uint32 cpu_percent = 7;
     uint64 mem_rss = 8;
     uint64 mem_pss = 9;
+    uint32 fd_count = 10;
 }
 
 message ProcInfo {
@@ -139,6 +140,7 @@ message ContextInfoEntry {
     uint32 total_cpu_percent = 4;
     uint64 total_mem_rss = 5;
     uint64 total_mem_pss = 6;
+    uint32 total_fd_count = 7;
 }
 
 message ContextInfo {
