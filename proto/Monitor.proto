@@ -16,6 +16,7 @@ message SessionInfo {
         SysProcDiskStats = 7;
         SysProcBuddyInfo = 8;
         SysProcWireless = 9;
+        SysProcVMStat = 10;
     }
     string hash = 1;
     string name = 2;
@@ -126,6 +127,7 @@ message ProcInfoEntry {
     uint32 cpu_percent = 7;
     uint64 mem_rss = 8;
     uint64 mem_pss = 9;
+    uint32 fd_count = 10;
 }
 
 message ProcInfo {
@@ -139,6 +141,7 @@ message ContextInfoEntry {
     uint32 total_cpu_percent = 4;
     uint64 total_mem_rss = 5;
     uint64 total_mem_pss = 6;
+    uint32 total_fd_count = 7;
 }
 
 message ContextInfo {
@@ -223,6 +226,41 @@ message SysProcMemInfo {
     uint64 cma_free = 18;
 }
 
+message SysProcVMStat {
+    uint64 pgpgin = 1;
+    uint64 pgpgout = 2;
+    uint64 pswpin = 3;
+    uint64 pswpout = 4;
+    uint64 pgmajfault = 5;
+    uint64 pgreuse = 6;
+    uint64 pgsteal_kswapd = 7;
+    uint64 pgsteal_direct = 8;
+    uint64 pgsteal_khugepaged = 9;
+    uint64 pgsteal_anon = 10;
+    uint64 pgsteal_file = 11;
+    uint64 pgscan_kswapd = 12;
+    uint64 pgscan_direct = 13;
+    uint64 pgscan_khugepaged = 14;
+    uint64 pgscan_direct_throttle = 15;
+    uint64 pgscan_anon = 16;
+    uint64 pgscan_file = 17;
+    uint64 oom_kill = 18;
+    uint64 compact_stall = 19;
+    uint64 compact_fail = 20;
+    uint64 compact_success = 21;
+    uint64 thp_fault_alloc = 22;
+    uint64 thp_collapse_alloc = 23;
+    uint64 thp_collapse_alloc_failed = 24;
+    uint64 thp_file_alloc = 25;
+    uint64 thp_file_mapped = 26;
+    uint64 thp_split_page = 27;
+    uint64 thp_split_page_failed = 28;
+    uint64 thp_zero_page_alloc = 29;
+    uint64 thp_zero_page_alloc_failed = 30;
+    uint64 thp_swpout = 31;
+    uint64 thp_swpout_fallback = 32;
+}
+
 message DiskStatEntry {
     uint32 node_major = 1;
     uint32 node_minor = 2;
@@ -254,6 +292,7 @@ message Data {
         SysProcDiskStats = 7;
         SysProcBuddyInfo = 8;
         SysProcWireless = 9;
+        SysProcVMStat = 10;
     }
     What what = 1;
     uint64 system_time_sec = 2;
