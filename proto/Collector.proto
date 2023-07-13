@@ -29,6 +29,7 @@ message Request {
         GetSysProcBuddyInfo = 11;
         GetSysProcWireless = 12;
         KeepAlive = 13;
+        GetSysProcVMStat = 14;
     }
     Type type = 2;
     google.protobuf.Any data = 3;
