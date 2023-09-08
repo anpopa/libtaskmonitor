@@ -28,6 +28,7 @@ message SessionInfo {
     repeated DataSource slow_lane_sources = 8;
     uint32 core_count = 9;
     uint64 keep_alive_interval = 10;
+    string libtkm_version = 11;
 }
 
 message Status {
